@@ -6,7 +6,7 @@
 ## Here are the first command i run on a new debian/ubuntu environment
 
 ### Update & install basic prog
-apt update && apt upgrade -y && apt install -y zsh neovim curl
+apt update && apt upgrade -y && apt install -y zsh neovim curl git
 
 ### Import basic zsh config 
 cd
