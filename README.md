@@ -9,7 +9,9 @@
 apt update && apt upgrade -y && apt install -y zsh neovim curl
 
 ### Import basic zsh config 
+cd
 curl -LO https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/.zshrc
+zsh
 
 ### Import basic neovim config
 curl --create-dirs -Lo ~/.config/nvim https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/init.vim
