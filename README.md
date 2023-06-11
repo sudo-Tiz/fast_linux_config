@@ -14,5 +14,5 @@ curl -LO https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/.zshr
 zsh
 
 ### Import basic neovim config
-curl --create-dirs -Lo ~/.config/nvim/init.nvim https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/init.vim
+curl --create-dirs -Lo ~/.config/nvim/init.vim https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/init.vim
 
