@@ -1,6 +1,7 @@
 # fast_linux_config
-## just a few dotfiles to start working on a new linux environment
+#### just a few dotfiles to start working on a new linux environment
 
+<br /> 
 
 ## Here are the first command i run on a new debian/ubuntu environment
 
@@ -8,7 +9,8 @@
 apt update && apt upgrade -y && apt install zsh neovim curl
 
 ### Import basic zsh config 
-curl --create-dirs -o ~/.config/nvim URL
+curl --create-dirs -Lo ~/.config/nvim https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/.zshrc
 
 ### Import basic neovim config
-curl -O URL
+curl -LO https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/init.vim
+
