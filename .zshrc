@@ -9,6 +9,9 @@ setopt interactive_comments
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"
+setopt HIST_REDUCE_BLANKS   # Remove superfluous blanks
+setopt HIST_VERIFY          # Show command before executing from history
+setopt SHARE_HISTORY        # Share history between sessions
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -56,46 +59,46 @@ bindkey -M visual '^[[P' vi-delete
 
 # Aliases
 alias \
-        cp="cp -a" \
-        mv="mv -i" \
-        rm="rm -rf" \
-        bc="bc -ql" \
-        mkd="mkdir -pv" \
-        mdtemp="cd $(mktemp -d)" \
-        grep="grep --color=auto" \
-        diff="diff --color=auto" \
-        ip="ip -color=auto" \
-        ls="ls -hN --color=auto --group-directories-first" \
-        l="ls" \
-        ll="ls -l" \
-        la="ls -aF" \
-        lla="ls -laF" \
-        ...="cd ../.." \
-        ....="cd ../../.." \
-        .....="cd ../../../.." \
-        v="nvim" \
-        g="git" \
-        gd="git diff" \
-        gcl='git clone' \
-        gull='git pull' \
-        gush='git push' \
-        gco='git commit -m' \
-        ga='git add' \
-        gr='git restore' \
-        grs='git restore --staged' \
-        greset1='git reset --hard HEAD~1' \
-        gusho='git push -f origin' \
-        gst='git status' \
-        gl='git log' \
-        gb='git branch' \
-        gch="git checkout" \
-        gchb="git checkout -b" \
-        gls='l --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
-        gll='l --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
-        ve='python -m venv .env' \
-        va='source ./.env/bin/activate || source ./env/bin/activate || source ./.venv/bin/activate' \
-        veva='python -m venv .env && source ./.env/bin/activate' \
-        da='deactivate'\
+    cp="cp -a" \
+    mv="mv -i" \
+    rm="rm -rf" \
+    bc="bc -ql" \
+    mkd="mkdir -pv" \
+    mdtemp="cd $(mktemp -d)" \
+    grep="grep --color=auto" \
+    diff="diff --color=auto" \
+    ip="ip -color=auto" \
+    ls="ls -hN --color=auto --group-directories-first" \
+    l="ls" \
+    ll="ls -l" \
+    la="ls -aF" \
+    lla="ls -laF" \
+    ...="cd ../.." \
+    ....="cd ../../.." \
+    .....="cd ../../../.." \
+    v="nvim" \
+    g="git" \
+    gd="git diff" \
+    gcl='git clone' \
+    gull='git pull' \
+    gush='git push' \
+    gco='git commit -m' \
+    ga='git add' \
+    gr='git restore' \
+    grs='git restore --staged' \
+    greset1='git reset --hard HEAD~1' \
+    gusho='git push -f origin' \
+    gst='git status' \
+    gl='git log' \
+    gb='git branch' \
+    gch="git checkout" \
+    gchb="git checkout -b" \
+    gls='l --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
+    gll='l --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
+    ve='python -m venv .env' \
+    va='source ./.env/bin/activate || source ./env/bin/activate || source ./.venv/bin/activate' \
+    veva='python -m venv .env && source ./.env/bin/activate' \
+    da='deactivate'\
 
 ch() { curl "http://cheat.sh/$@"; }
 

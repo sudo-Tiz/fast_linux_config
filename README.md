@@ -1,18 +1,41 @@
-# fast_linux_config
-#### just a few dotfiles to start working on a new linux environment
+# 🚀 Fast Linux Config
 
-<br /> 
+> **Minimal dotfiles to quickly setup a new Linux environment**
 
-## Here are the first command i run on a new debian/ubuntu environment
+Lightweight and efficient configurations for Neovim, Zsh, and Bash.
 
-### Update & install basic prog
-apt update && apt upgrade -y && apt install -y zsh neovim curl git
+## 📦 Quick Setup
 
-### Import basic zsh config 
-cd
+```bash
+# Install essentials
+sudo apt update && sudo apt upgrade -y
+sudo apt install -y zsh neovim curl git
+
+# Get configs
 curl -LO https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/.zshrc
-zsh
+curl --create-dirs -Lo ~/.config/nvim/init.vim \
+  https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/init.vim
 
-### Import basic neovim config
-curl --create-dirs -Lo ~/.config/nvim/init.vim https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/init.vim
+# Switch to zsh
+chsh -s $(which zsh) && zsh
+```
 
+## ✨ Features
+
+### Neovim
+- Auto-installs vim-plug and essential plugins
+- NERDTree, vim-surround, commentary, airline, vimagit
+- Vi mode, split navigation, auto-cleanup
+
+### Zsh/Bash
+- Colorful prompt: `[user@host path]$`
+- Vi mode with adaptive cursor
+- 10M history with deduplication  
+- 50+ git/python/nav aliases
+- Syntax highlighting
+
+### Bash Alternative
+Don't want to switch to Zsh? Use the Bash version instead:
+```bash
+curl -LO https://raw.githubusercontent.com/sudo-Tiz/fast_linux_config/main/.bashrc
+```
