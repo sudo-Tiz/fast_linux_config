@@ -56,11 +56,12 @@ bindkey -M visual '^[[P' vi-delete
 
 # Aliases
 alias \
-        cp="cp -ivr" \
-        mv="mv -iv" \
-        rm="rm -vIrf" \
+        cp="cp -a" \
+        mv="mv -i" \
+        rm="rm -rf" \
         bc="bc -ql" \
         mkd="mkdir -pv" \
+        mdtemp="cd $(mktemp -d)" \
         grep="grep --color=auto" \
         diff="diff --color=auto" \
         ip="ip -color=auto" \
@@ -74,16 +75,29 @@ alias \
         .....="cd ../../../.." \
         v="nvim" \
         g="git" \
-        glone="git clone" \
-        gull="git pull" \
-        gush="git push" \
-        gommit="git commit -m" \
-        gadd="git add" \
-        gradd="git restore --staged" \
-        gremove="git remove" \
-        gatus="git status" \
+        gd="git diff" \
+        gcl='git clone' \
+        gull='git pull' \
+        gush='git push' \
+        gco='git commit -m' \
+        ga='git add' \
+        gr='git restore' \
+        grs='git restore --staged' \
+        greset1='git reset --hard HEAD~1' \
+        gusho='git push -f origin' \
+        gst='git status' \
+        gl='git log' \
+        gb='git branch' \
+        gch="git checkout" \
+        gchb="git checkout -b" \
+        gls='l --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
+        gll='l --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
+        ve='python -m venv .env' \
+        va='source ./.env/bin/activate || source ./env/bin/activate || source ./.venv/bin/activate' \
+        veva='python -m venv .env && source ./.env/bin/activate' \
+        da='deactivate'\
 
-
+ch() { curl "http://cheat.sh/$@"; }
 
 # Load syntax highlighting; should be last.
 source /usr/share/zsh/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
