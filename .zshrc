@@ -99,6 +99,10 @@ alias \
     va='source ./.env/bin/activate || source ./env/bin/activate || source ./.venv/bin/activate' \
     veva='python -m venv .env && source ./.env/bin/activate' \
     da='deactivate'\
+    sagi='sudo apt get install' \
+    sagu='sudo apt get update && sudo apt get upgrade'\
+    sp='sudo pacman'\
+    p='pacman'
 
 ch() { curl "http://cheat.sh/$@"; }
 

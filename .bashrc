@@ -3,7 +3,7 @@
 
 # Enable colors and change prompt:
 PS1='\[\e[1;31m\][\[\e[1;33m\]\u\[\e[1;32m\]@\[\e[1;34m\]\h \[\e[1;35m\]\w\[\e[1;31m\]]\[\e[0m\]$ '
-stty stop undef		# Disable ctrl-s to freeze terminal.
+stty stop undef # Disable ctrl-s to freeze terminal.
 
 # History in cache directory:
 HISTSIZE=10000000
@@ -13,9 +13,9 @@ HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/bash/history"
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/bash"
 
 # History options (bash equivalents)
-HISTCONTROL=ignoreboth:erasedups  # Don't record duplicate entries and entries starting with space
-shopt -s histappend               # Append to history file, don't overwrite
-shopt -s histverify               # Show command before executing from history
+HISTCONTROL=ignoreboth:erasedups # Don't record duplicate entries and entries starting with space
+shopt -s histappend              # Append to history file, don't overwrite
+shopt -s histverify              # Show command before executing from history
 
 # Enable auto cd (bash 4.0+)
 shopt -s autocd 2>/dev/null
@@ -59,50 +59,54 @@ PROMPT_COMMAND="set_cursor_beam; $PROMPT_COMMAND"
 
 # Aliases
 alias \
-    cp="cp -a" \
-    mv="mv -i" \
-    rm="rm -rf" \
-    bc="bc -ql" \
-    mkd="mkdir -pv" \
-    mdtemp="cd $(mktemp -d)" \
-    grep="grep --color=auto" \
-    diff="diff --color=auto" \
-    ip="ip -color=auto" \
-    ls="ls -hN --color=auto --group-directories-first" \
-    l="ls" \
-    ll="ls -l" \
-    la="ls -aF" \
-    lla="ls -laF" \
-    ...="cd ../.." \
-    ....="cd ../../.." \
-    .....="cd ../../../.." \
-    v="nvim" \
-    g="git" \
-    gd="git diff" \
-    gcl='git clone' \
-    gull='git pull' \
-    gush='git push' \
-    gco='git commit -m' \
-    ga='git add' \
-    gr='git restore' \
-    grs='git restore --staged' \
-    greset1='git reset --hard HEAD~1' \
-    gusho='git push -f origin' \
-    gst='git status' \
-    gl='git log' \
-    gb='git branch' \
-    gch="git checkout" \
-    gchb="git checkout -b" \
-    gls='l --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
-    gll='l --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
-    ve='python -m venv .env' \
-    va='source ./.env/bin/activate || source ./env/bin/activate || source ./.venv/bin/activate' \
-    veva='python -m venv .env && source ./.env/bin/activate' \
-    da='deactivate'\
+  cp="cp -a" \
+  mv="mv -i" \
+  rm="rm -rf" \
+  bc="bc -ql" \
+  mkd="mkdir -pv" \
+  mdtemp="cd $(mktemp -d)" \
+  grep="grep --color=auto" \
+  diff="diff --color=auto" \
+  ip="ip -color=auto" \
+  ls="ls -hN --color=auto --group-directories-first" \
+  l="ls" \
+  ll="ls -l" \
+  la="ls -aF" \
+  lla="ls -laF" \
+  ...="cd ../.." \
+  ....="cd ../../.." \
+  .....="cd ../../../.." \
+  v="nvim" \
+  g="git" \
+  gd="git diff" \
+  gcl='git clone' \
+  gull='git pull' \
+  gush='git push' \
+  gco='git commit -m' \
+  ga='git add' \
+  gr='git restore' \
+  grs='git restore --staged' \
+  greset1='git reset --hard HEAD~1' \
+  gusho='git push -f origin' \
+  gst='git status' \
+  gl='git log' \
+  gb='git branch' \
+  gch="git checkout" \
+  gchb="git checkout -b" \
+  gls='l --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
+  gll='l --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
+  ve='python -m venv .env' \
+  va='source ./.env/bin/activate || source ./env/bin/activate || source ./.venv/bin/activate' \
+  veva='python -m venv .env && source ./.env/bin/activate' \
+  da='deactivate' \
+  sagi='sudo apt get install' \
+  sagu='sudo apt get update && sudo apt get upgrade' \
+  sp='sudo pacman' \
+  p='pacman'
 
 ch() { curl "http://cheat.sh/$@"; }
 
 # Load bash syntax highlighting if available
 if [ -f /usr/share/bash-syntax-highlighting/bash-syntax-highlighting.sh ]; then
-    source /usr/share/bash-syntax-highlighting/bash-syntax-highlighting.sh 2>/dev/null
+  source /usr/share/bash-syntax-highlighting/bash-syntax-highlighting.sh 2>/dev/null
 fi
