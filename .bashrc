@@ -104,7 +104,7 @@ alias \
   sp='sudo pacman' \
   p='pacman'
 
-ch() { curl "http://cheat.sh/$@"; }
+ch() { curl "http://cheat.sh/$1"; }
 
 # Load bash syntax highlighting if available
 if [ -f /usr/share/bash-syntax-highlighting/bash-syntax-highlighting.sh ]; then
