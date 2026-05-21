@@ -57,7 +57,7 @@ set_cursor_beam
 # Hook for prompt to reset cursor
 PROMPT_COMMAND="set_cursor_beam; $PROMPT_COMMAND"
 
-# Aliases
+# COLOR & SHORTEN
 alias \
   cp="cp -a" \
   mv="mv -i" \
@@ -76,18 +76,39 @@ alias \
   ...="cd ../.." \
   ....="cd ../../.." \
   .....="cd ../../../.." \
-  v="nvim" \
+  sagi='sudo apt get install' \
+  sagu='sudo apt get update && sudo apt get upgrade' \
+  sp='sudo pacman' \
+  p='pacman' \
+  sysup='sudo systemctl enable --now' \
+  sysdn='sudo systemctl disable --now'
+
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d" v="nvim"
+
+# DOCKER
+[ -x "$(command -v docker)" ] && alias \
+  doc='sudo /bin/docker' \
+  doco='sudo /bin/docker compose' \
+  rmdoc='sudo /bin/docker rm -f $(/bin/docker ps -a -q)'
+
+# GIT
+[ -x "$(command -v git)" ] && alias \
   g="git" \
   gd="git diff" \
   gcl='git clone' \
   gull='git pull' \
   gush='git push' \
+  gusho='git push -f origin' \
+  gash="git stash" \
+  gme= "git merge" \
+  gmest="git merge stash" \
   gco='git commit -m' \
+  gcoa='git commit -amend --no-edit' \
   ga='git add' \
   gr='git restore' \
   grs='git restore --staged' \
   greset1='git reset --hard HEAD~1' \
-  gusho='git push -f origin' \
   gst='git status' \
   gl='git log' \
   gb='git branch' \
@@ -95,16 +116,51 @@ alias \
   gchb="git checkout -b" \
   gls='l --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
   gll='l --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
-  ve='python -m venv .env' \
-  va='source ./.env/bin/activate || source ./env/bin/activate || source ./.venv/bin/activate' \
-  veva='python -m venv .env && source ./.env/bin/activate' \
-  da='deactivate' \
-  sagi='sudo apt get install' \
-  sagu='sudo apt get update && sudo apt get upgrade' \
-  sp='sudo pacman' \
-  p='pacman'
+  grao='git remote rm origin; git remote add origin' &&
+  gdi() { git diff --name-only --relative --diff-filter=d | xargs bat --diff; }
+
+# VENV
+alias \
+  ve='python -m venv .venv' \
+  va='source .venv/bin/activate || source .env/bin/activate' \
+  veva='python -m venv .venv && source .venv/bin/activate' \
+  da='deactivate'
+#
+# Copy progress bar
+[ -x "$(command -v rsync)" ] && alias \
+  cpv='rsync -ah --info=progress2' \
+  mvv='rsync -ah --remove-source-files --info=progress2'
+
+# list path to other zsh shell opened
+lssh() {
+  ps au |
+    awk '$11 == "/usr/bin/zsh" || $11 == "/bin/zsh" { print $2 }' |
+    xargs pwdx |
+    awk '{ print $2 }' |
+    sed -n "\|^${2}.*|p" |
+    sort -u |
+    nl
+}
+# cd to path of another shell, using fzf as selector
+cs() {
+  if command -v fzf &>/dev/null; then
+    cmd1=$(lssh | fzf --select-1 --query "$1" --height=~50 | cut -f 2)
+  else
+    echo "Select a shell to change directory to:"
+    lssh
+    read selection
+    cmd1=$(lssh | awk -v sel="$selection" 'NR == sel { print $2 }')
+  fi
+  cmd="cd $cmd1"
+  print -S $cmd
+  eval $cmd
+}
 
 ch() { curl "http://cheat.sh/$1"; }
+# Backup functions
+old() { mv "$1" "$1.old"; }
+bak() { cp "$1" "$1.bak"; }
+baktar() { tar -zcvf "${1}_$(date '+%Y-%m-%d_%H-%M').tar.gz" "$1"; }
 
 # Load bash syntax highlighting if available
 if [ -f /usr/share/bash-syntax-highlighting/bash-syntax-highlighting.sh ]; then
