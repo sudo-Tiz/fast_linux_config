@@ -98,9 +98,11 @@ alias \
   gd="git diff" \
   gcl='git clone' \
   gull='git pull' \
+  gullp='git stash && git pull && git stash pop' \
   gush='git push' \
   gusho='git push -f origin' \
   gash="git stash" \
+  gashp="git stash" \
   gme= "git merge" \
   gmest="git merge stash" \
   gco='git commit -m' \
@@ -114,6 +116,8 @@ alias \
   gb='git branch' \
   gch="git checkout" \
   gchb="git checkout -b" \
+  gsiu="git submodule init && git submodule update" \
+  gsur="git submodule update --remote" \
   gls='l --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
   gll='l --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
   grao='git remote rm origin; git remote add origin' &&
