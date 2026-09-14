@@ -47,15 +47,15 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
-bindkey '^[[P' delete-char
+bindkey '^[[3~' delete-char   
 bindkey '^R' history-incremental-search-backward
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
-bindkey -M vicmd '^[[P' vi-delete-char
+bindkey -M vicmd '^[[3~' vi-delete-char
 bindkey -M vicmd '^e' edit-command-line
-bindkey -M visual '^[[P' vi-delete
+bindkey -M visual '^[[3~' vi-delete
 
 # ################# #
 # Aliases & Function
