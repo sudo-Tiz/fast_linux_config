@@ -95,6 +95,15 @@ command -v eza >/dev/null 2>&1 || eza() { ls "$@"; }
   lt()  { eza -TaF -- "$@"; }
   llt() { eza -Tal -- "$@"; }
 
+# TMUX
+[ -x "$(command -v tmux)" ] && alias \
+  t="tmux" \
+  ta="tmux attach-session" \
+  tnew="tmux new-session" \
+  tls="tmux list-sessions" \
+  tk="tmux kill-session" \
+  tka="tmux kill-server" \
+
 # DOCKER + COMPOSE
 [ -x "$(command -v docker)" ] && alias \
   d="docker" \
