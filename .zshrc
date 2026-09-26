@@ -99,11 +99,60 @@ command -v eza >/dev/null 2>&1 || eza() { ls "$@"; }
   lt()  { eza -TaF -- "$@"; }
   llt() { eza -Tal -- "$@"; }
 
-# DOCKER
+# TMUX
+[ -x "$(command -v tmux)" ] && alias \
+  t="tmux" \
+  ta="tmux attach-session" \
+  tnew="tmux new-session" \
+  tls="tmux list-sessions" \
+  tk="tmux kill-session" \
+  tka="tmux kill-server" \
+
+# DOCKER + COMPOSE
 [ -x "$(command -v docker)" ] && alias \
-  doc='sudo /bin/docker' \
-  doco='sudo /bin/docker compose' \
-  rmdoc='sudo /bin/docker rm -f $(/bin/docker ps -a -q)'
+  d="docker" \
+  dps="docker ps" \
+  dpsa="docker ps -a" \
+  di="docker images" \
+  dip="docker image pull" \
+  drun="docker run" \
+  dex="docker exec -it" \
+  dl="docker logs" \
+  dlf="docker logs -f" \
+  dst="docker stop" \
+  drm="docker rm" \
+  drmi="docker rmi" \
+  drestart="docker restart" \
+  dinspect="docker inspect" \
+  dtop="docker stats" \
+  dnet="docker network ls" \
+  dvol="docker volume ls" \
+  dprune="docker system prune" \
+  dc="docker compose" \
+  dcup="docker compose up" \
+  dcupd="docker compose up -d" \
+  dcdown="docker compose down" \
+  dcps="docker compose ps" \
+  dcl="docker compose logs" \
+  dclf="docker compose logs -f" \
+  dce="docker compose exec" \
+  dcrestart="docker compose restart" \
+  dcbuild="docker compose build" \
+  dcpull="docker compose pull"
+
+# KUBECTL
+[ -x "$(command -v kubectl)" ] && alias \
+  k="kubectl" \
+  ka="kubectl apply -f" \
+  kg="kubectl get" \
+  kd="kubectl describe" \
+  kdel="kubectl delete" \
+  kl="kubectl logs" \
+  kgpo="kubectl get pod" \
+  kgd="kubectl get deployments" \
+  kl="kubectl logs -f" \
+  ke="kubectl exec -it" \
+  kcns='kubectl config set-context --current --namespace' \
 
 # GIT
 [ -x "$(command -v git)" ] && alias \
@@ -124,15 +173,17 @@ command -v eza >/dev/null 2>&1 || eza() { ls "$@"; }
   gr='git restore' \
   grs='git restore --staged' \
   greset1='git reset --hard HEAD~1' \
-  gst='git status' \
+  gst='git -p status' \
+  gl='git log --oneline --graph -20' \
+  gll='git log ' \
   gl='git log' \
   gb='git branch' \
   gch="git checkout" \
   gchb="git checkout -b" \
   gsiu="git submodule init && git submodule update" \
   gsur="git submodule update --remote" \
-  gls='l --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
-  gll='l --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
+  gls='ls --group-directories-first --color=auto -d $(git ls-tree $(git branch | grep \* | cut -d " " -f2) --name-only)' \
+  gtree='ls --group-directories-first --color=auto -d $(git ls-tree -r $(git branch | grep \* | cut -d " " -f2) --name-only)' \
   grao='git remote rm origin; git remote add origin'  &&
   gdi() { git diff --name-only --relative --diff-filter=d | xargs bat --diff; }
 
@@ -148,6 +199,38 @@ alias \
 [ -x "$(command -v rsync)" ] && alias \
   cpv='rsync -ah --info=progress2' \
   mvv='rsync -ah --remove-source-files --info=progress2'
+
+ide() {
+    local dir="${1:-.}"
+    local name
+    dir="$(cd "$dir" && pwd -P)" || return 1
+    name="${dir#$HOME/}"
+    name="${name//[^a-zA-Z0-9_-]/-}"
+    if tmux has-session -t "$name" 2>/dev/null; then
+        tmux attach -t "$name"
+        return
+    fi
+    tmux new-session -d \
+        -s "$name" \
+        -n main \
+        -c "$dir" \
+        "nvim '$dir'"
+    tmux split-window -h \
+        -t "$name:main" \
+        -c "$dir" \
+        "zsh -ic 'opc \"\$1\"' _ '$dir'"
+    tmux select-pane -L -t "$name:main"
+    tmux split-window -v \
+        -t "$name:main" \
+        -c "$dir" \
+        "zsh"
+    tmux resize-pane -y 2 \
+        -t "$name:main"
+    tmux select-pane -t "$name:main.0"
+    tmux attach -t "$name"
+}
+alias i="ide"
+
 
 # list path to other zsh shell opened
 lssh() {
@@ -174,6 +257,10 @@ cs() {
   eval $cmd
 }
 
+# qrencode any file and print it
+[ -x "$(command -v convert)" ] && qr(){
+  local o; o=$(mktemp) && qrencode -r "$1" -o "$o" -t UTF8 && cat "$o"; 
+}
 
 ch() { curl "http://cheat.sh/$1"; }
 # Backup functions
